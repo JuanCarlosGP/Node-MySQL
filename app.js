@@ -1,34 +1,37 @@
-import express from 'express'
 
-import { getNotes, getNote, createNote } from './database.js'
+import mysql from 'mysql2'
 
-const app = express()
+import dotenv from 'dotenv'
+dotenv.config()
 
-app.use(express.json())
+const pool = mysql.createPool({
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE
+}).promise()
+const result = await pool.query('SELECT * FROM etiquetas')
 
-app.get("/notes", async (req, res) => {
-  const notes = await getNotes()
-  res.send(notes)
-})
-
-app.get("/notes/:id", async (req, res) => {
-  const id = req.params.id
-  const note = await getNote(id)
-  res.send(note)
-})
-
-app.post("/notes", async (req, res) => {
-  const { title, contents } = req.body
-  const note = await createNote(title, contents)
-  res.status(201).send(note)
-})
+const rows = result[0]
+console.log(result)
 
 
-app.use((err, req, res, next) => {
-  console.error(err.stack)
-  res.status(500).send('Something broke 💩')
-})
+// import mysql from 'mysql2'
 
-app.listen(8080, () => {
-  console.log('Server is running on port 8080')
-})
+// import dotenv from 'dotenv'
+// dotenv.config()
+
+// const pool = mysql.createPool({
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'root',
+//   database: 'sparkdb'
+// //     host: process.env.MYSQL_HOST,
+// //   user: process.env.MYSQL_USER,
+// //   password: process.env.MYSQL_PASSWORD,
+// //   database: process.env.MYSQL_DATABASE
+// }).promise()
+// const result = await pool.query('SELECT * FROM etiquetas')
+
+// const rows = result[0]
+// console.log(result)
