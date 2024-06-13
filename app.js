@@ -7,8 +7,7 @@ const pool = mysql.createPool({
   port: process.env.MYSQL_PORT,
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
-  multipleStatements: true // Habilitar múltiples sentencias
+  database: process.env.MYSQL_DATABASE
 }).promise();
 
 const insertTagsQuery = `
@@ -73,14 +72,16 @@ INSERT INTO user_classes (type_name) VALUES
 async function runQueries() {
   try {
     await pool.query(insertTagsQuery);
+    console.log('Datos insertados en tags correctamente');
     await pool.query(insertUserClassesQuery);
-    console.log('Datos insertados correctamente');
+    console.log('Datos insertados en user_classes correctamente');
   } catch (error) {
     console.error('Error al insertar datos:', error);
   }
 }
 
 runQueries();
+
 
 
 
