@@ -7,10 +7,11 @@ const pool = mysql.createPool({
   port: process.env.MYSQL_PORT,
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE
+  database: process.env.MYSQL_DATABASE,
+  multipleStatements: true // Habilitar múltiples sentencias
 }).promise();
 
-const insertEtiquetasQuery = `INSERT INTO etiquetas (Nombre_Etiqueta) VALUES
+const showDatabasesQuery = `INSERT INTO etiquetas (Nombre_Etiqueta) VALUES
 ('Programación'),
 ('Ventas'),
 ('Marketing'),
@@ -38,21 +39,17 @@ const insertEtiquetasQuery = `INSERT INTO etiquetas (Nombre_Etiqueta) VALUES
 ('Psicología'),
 ('Sociología'),
 ('Economía'),
-('Derecho');`;
+('Derecho');
 
-const insertTiposUsuariosQuery = `INSERT INTO tipos_usuarios (Nombre_Tipo) VALUES ('Emprendedor'), ('Autodidacta'), ('Ambos');`;
+INSERT INTO tipos_usuarios (Nombre_Tipo) VALUES ('Emprendedor'), ('Autodidacta'), ('Ambos');`;
 
-async function runQueries() {
-  try {
-    await pool.query(insertEtiquetasQuery);
-    await pool.query(insertTiposUsuariosQuery);
-    console.log('Datos insertados correctamente');
-  } catch (error) {
-    console.error('Error al insertar datos:', error);
-  }
+try {
+  const result = await pool.query(showDatabasesQuery);
+  console.log('Datos insertados correctamente');
+} catch (error) {
+  console.error('Error al insertar datos:', error);
 }
 
-runQueries();
 
 // import mysql from 'mysql2'
 
