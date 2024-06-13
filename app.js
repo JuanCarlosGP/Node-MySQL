@@ -10,7 +10,7 @@ const pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE
 }).promise();
 
-const showDatabasesQuery = `SHOW DATABASES`;
+const showDatabasesQuery = `CREATE DATABASE test`;
 
 try {
   const result = await pool.query(showDatabasesQuery);
