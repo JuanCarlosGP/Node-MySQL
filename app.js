@@ -10,7 +10,7 @@ const pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE
 }).promise();
 
-const showDatabasesQuery = `INSERT INTO etiquetas (Nombre_Etiqueta) VALUES
+const insertEtiquetasQuery = `INSERT INTO etiquetas (Nombre_Etiqueta) VALUES
 ('Programación'),
 ('Ventas'),
 ('Marketing'),
@@ -38,17 +38,22 @@ const showDatabasesQuery = `INSERT INTO etiquetas (Nombre_Etiqueta) VALUES
 ('Psicología'),
 ('Sociología'),
 ('Economía'),
-('Derecho');
+('Derecho');`;
 
-INSERT INTO tipos_usuarios (Nombre_Tipo) VALUES ('Emprendedor'), ('Autodidacta'), ('Ambos');`;
+const insertTiposUsuariosQuery = `INSERT INTO tipos_usuarios (Nombre_Tipo) VALUES ('Emprendedor'), ('Autodidacta'), ('Ambos');`;
 
-try {
-  const result = await pool.query(showDatabasesQuery);
-  const databases = result[0];
-  console.log('Nombres de las bases de datos:', databases);
-} catch (error) {
-  console.error('Error al mostrar nombres de las bases de datos:', error);
+async function runQueries() {
+  try {
+    await pool.query(insertEtiquetasQuery);
+    await pool.query(insertTiposUsuariosQuery);
+    console.log('Datos insertados correctamente');
+  } catch (error) {
+    console.error('Error al insertar datos:', error);
+  }
 }
+
+runQueries();
+
 // import mysql from 'mysql2'
 
 // import dotenv from 'dotenv'
