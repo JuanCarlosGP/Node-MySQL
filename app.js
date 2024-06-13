@@ -11,15 +11,16 @@ const pool = mysql.createPool({
   multipleStatements: true // Habilitar múltiples sentencias
 }).promise();
 
-const showDatabasesQuery = `INSERT INTO etiquetas (Nombre_Etiqueta) VALUES
+const insertQueries = `
+INSERT INTO tags (tag_name) VALUES
 ('Programación'),
 ('Ventas'),
 ('Marketing'),
 ('Finanzas'),
 ('Diseño'),
+('Filosofía'),
 ('Idiomas'),
 ('Emprendimiento'),
-('Negocios'),
 ('Redes Sociales'),
 ('Videojuegos'),
 ('Ciencia'),
@@ -34,21 +35,49 @@ const showDatabasesQuery = `INSERT INTO etiquetas (Nombre_Etiqueta) VALUES
 ('Literatura'),
 ('Historia'),
 ('Política'),
-('Filosofía'),
 ('Religión'),
 ('Psicología'),
 ('Sociología'),
 ('Economía'),
-('Derecho');
+('Derecho'),
+('Administración'),
+('Informática'),
+('Educación'),
+('Coches'),
+('Servicios Profesional'),
+('Comercio'),
+('Bolsa'),
+('Arte Digital'),
+('Animación 3D'),
+('Entornos Interactivos'),
+('Organización de Eventos'),
+('Audiovisuales'),
+('Legal'),
+('Belleza'),
+('Cultura'),
+('Sanitaria'),
+('Área Audiovisual'),
+('Periodismo'),
+('Ciencias Sociales'),
+('Medioambiente'),
+('Automoción');
 
-INSERT INTO tipos_usuarios (Nombre_Tipo) VALUES ('Emprendedor'), ('Autodidacta'), ('Ambos');`;
+INSERT INTO user_classes (type_name) VALUES
+('Emprendedor'),
+('Autodidacta'),
+('Ambos');
+`;
 
-try {
-  const result = await pool.query(showDatabasesQuery);
-  console.log('Datos insertados correctamente');
-} catch (error) {
-  console.error('Error al insertar datos:', error);
+async function runQueries() {
+  try {
+    await pool.query(insertQueries);
+    console.log('Datos insertados correctamente');
+  } catch (error) {
+    console.error('Error al insertar datos:', error);
+  }
 }
+
+runQueries();
 
 
 // import mysql from 'mysql2'
