@@ -9,16 +9,15 @@ const pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE
 }).promise();
 
-const insertQuery = `INSERT INTO usuarios (Nombre_Usuario, Correo_Electrónico, Contraseña) VALUES (?, ?, ?)`;
-const values = ['Juan Perez', 'juan.perez@example.com', 'contraseña123'];
+const showDatabasesQuery = `SHOW DATABASES`;
 
 try {
-  const result = await pool.execute(insertQuery, values);
-  console.log('Usuario insertado:', result);
+  const result = await pool.query(showDatabasesQuery);
+  const databases = result[0];
+  console.log('Nombres de las bases de datos:', databases);
 } catch (error) {
-  console.error('Error al insertar usuario:', error);
+  console.error('Error al mostrar nombres de las bases de datos:', error);
 }
-
 // import mysql from 'mysql2'
 
 // import dotenv from 'dotenv'
