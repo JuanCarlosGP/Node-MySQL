@@ -10,7 +10,37 @@ const pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE
 }).promise();
 
-const showDatabasesQuery = `CREATE DATABASE test`;
+const showDatabasesQuery = `INSERT INTO etiquetas (Nombre_Etiqueta) VALUES
+('Programación'),
+('Ventas'),
+('Marketing'),
+('Finanzas'),
+('Diseño'),
+('Idiomas'),
+('Emprendimiento'),
+('Negocios'),
+('Redes Sociales'),
+('Videojuegos'),
+('Ciencia'),
+('Tecnología'),
+('Arte'),
+('Música'),
+('Deportes'),
+('Salud'),
+('Moda'),
+('Viajes'),
+('Cine'),
+('Literatura'),
+('Historia'),
+('Política'),
+('Filosofía'),
+('Religión'),
+('Psicología'),
+('Sociología'),
+('Economía'),
+('Derecho');
+
+INSERT INTO tipos_usuarios (Nombre_Tipo) VALUES ('Emprendedor'), ('Autodidacta'), ('Ambos');`;
 
 try {
   const result = await pool.query(showDatabasesQuery);
