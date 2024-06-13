@@ -62,26 +62,16 @@ INSERT INTO tags (tag_name) VALUES
 ('Automoción');
 `;
 
-const insertUserClassesQuery = `
-INSERT INTO user_classes (type_name) VALUES
-('Emprendedor'),
-('Autodidacta'),
-('Ambos');
-`;
-
-async function runQueries() {
+async function runQuery() {
   try {
     await pool.query(insertTagsQuery);
     console.log('Datos insertados en tags correctamente');
-    await pool.query(insertUserClassesQuery);
-    console.log('Datos insertados en user_classes correctamente');
   } catch (error) {
     console.error('Error al insertar datos:', error);
   }
 }
 
-runQueries();
-
+runQuery();
 
 
 
