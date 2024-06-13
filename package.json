@@ -5,7 +5,6 @@
   "type": "module",
   "main": "database.js",
   "scripts": {
-    "install" : "npm install",
     "start": "npm run dev",
     "dev": "npx nodemon app.js"
   },
