@@ -11,7 +11,7 @@ const pool = mysql.createPool({
   multipleStatements: true // Habilitar múltiples sentencias
 }).promise();
 
-const insertQueries = `
+const insertTagsQuery = `
 INSERT INTO tags (tag_name) VALUES
 ('Programación'),
 ('Ventas'),
@@ -61,7 +61,9 @@ INSERT INTO tags (tag_name) VALUES
 ('Ciencias Sociales'),
 ('Medioambiente'),
 ('Automoción');
+`;
 
+const insertUserClassesQuery = `
 INSERT INTO user_classes (type_name) VALUES
 ('Emprendedor'),
 ('Autodidacta'),
@@ -70,7 +72,8 @@ INSERT INTO user_classes (type_name) VALUES
 
 async function runQueries() {
   try {
-    await pool.query(insertQueries);
+    await pool.query(insertTagsQuery);
+    await pool.query(insertUserClassesQuery);
     console.log('Datos insertados correctamente');
   } catch (error) {
     console.error('Error al insertar datos:', error);
@@ -78,6 +81,7 @@ async function runQueries() {
 }
 
 runQueries();
+
 
 
 // import mysql from 'mysql2'
